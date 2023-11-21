@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import {
   bigint,
+  float,
   index,
   int,
   mysqlTableCreator,
@@ -19,22 +20,30 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
-export const posts = mysqlTable(
-  "post",
+export const products = mysqlTable(
+  "product",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }),
-    createdById: varchar("createdById", { length: 255 }).notNull(),
+    sellerId: varchar("sellerId", { length: 255 }).notNull(),
+    name: varchar("name", { length: 255 }).notNull(),
+    description: text("description"),
+    price: float("price").notNull(),
+    quantity: int("quanity").notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt").onUpdateNow(),
   },
-  (example) => ({
-    createdByIdIdx: index("createdById_idx").on(example.createdById),
-    nameIndex: index("name_idx").on(example.name),
-  })
+  (product) => ({
+    sellerIdIdx: index("sellerId_idx").on(product.sellerId),
+  }),
 );
+
+export const productImages = mysqlTable("productImage", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  url: varchar("url", { length: 255 }).notNull(),
+  sellerId: varchar("userId", { length: 255 }).notNull(),
+});
 
 export const users = mysqlTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
@@ -90,7 +99,7 @@ export const sessions = mysqlTable(
   },
   (session) => ({
     userIdIdx: index("userId_idx").on(session.userId),
-  })
+  }),
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
@@ -106,5 +115,5 @@ export const verificationTokens = mysqlTable(
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
-  })
+  }),
 );
