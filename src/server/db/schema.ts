@@ -60,6 +60,10 @@ export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
 }));
 
+export const userProductsRelations = relations(users, ({ many }) => ({
+  products: many(products),
+}));
+
 export const accounts = mysqlTable(
   "account",
   {
