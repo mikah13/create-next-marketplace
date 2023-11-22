@@ -22,6 +22,9 @@ export function CreateProduct() {
         onClick={() =>
           createProduct.mutate({
             name: "123",
+            description: "1231",
+            price: 12,
+            quantity: 1,
           })
         }
         disabled={createProduct.isLoading}

@@ -10,7 +10,6 @@ export const TProductObject = z.object({
   quantity: z.number().nonnegative(),
 });
 
-
 export const productRouter = createTRPCRouter({
   create: protectedProcedure
     .input(TProductObject)
