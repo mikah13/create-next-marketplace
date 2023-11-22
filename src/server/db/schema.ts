@@ -22,7 +22,7 @@ export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
 export const products = mysqlTable("product", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-  sellerId: varchar("seller_id", { length: 255 }).references(() => users.id),
+  sellerId: varchar("sellerId", { length: 255 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   description: text("description"),
   price: float("price").notNull(),
@@ -36,7 +36,7 @@ export const products = mysqlTable("product", {
 export const productImages = mysqlTable("productImage", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   url: varchar("url", { length: 255 }).notNull(),
-  sellerId: varchar("userId", { length: 255 }).notNull(),
+  productId: varchar("productId", { length: 255 }).notNull(),
 });
 
 export const users = mysqlTable(
@@ -89,8 +89,16 @@ export const usersRelations = relations(users, ({ many }) => ({
   products: many(products),
 }));
 
-export const productsRelations = relations(products, ({ one }) => ({
+export const productsRelations = relations(products, ({ one, many }) => ({
   user: one(users, { fields: [products.sellerId], references: [users.id] }),
+  productImages: many(productImages),
+}));
+
+export const productImagesRelations = relations(productImages, ({ one }) => ({
+  product: one(products, {
+    fields: [productImages.productId],
+    references: [products.id],
+  }),
 }));
 
 export const sessions = mysqlTable(
