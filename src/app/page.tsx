@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { CreatePost } from "@/app/_components/create-post";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
+import { CreateProduct } from "./_components/create-product";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
@@ -56,7 +56,7 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* <CrudShowcase /> */}
+        <CrudShowcase />
       </div>
     </main>
   );
@@ -67,16 +67,16 @@ async function CrudShowcase() {
   if (!session?.user) return null;
 
   const allProducts = await api.product.getAll.query();
-
+  console.log(allProducts);
   return (
     <div className="w-full max-w-xs">
-      {allProducts ? (
+      Product listing
+      {allProducts && allProducts.length > 0 ? (
         allProducts.map((product) => <div key={product.id}>{product.name}</div>)
       ) : (
-        <p>You have no posts yet.</p>
+        <p>You have no product yet.</p>
       )}
-
-      {/* <CreatePost /> */}
+      <CreateProduct />
     </div>
   );
 }
