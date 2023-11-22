@@ -20,24 +20,18 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
-export const products = mysqlTable(
-  "product",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    sellerId: varchar("sellerId", { length: 255 }).notNull(),
-    name: varchar("name", { length: 255 }).notNull(),
-    description: text("description"),
-    price: float("price").notNull(),
-    quantity: int("quanity").notNull(),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
-  },
-  (product) => ({
-    sellerIdIdx: index("sellerId_idx").on(product.sellerId),
-  }),
-);
+export const products = mysqlTable("product", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  sellerId: varchar("seller_id", { length: 255 }).references(() => users.id),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  price: float("price").notNull(),
+  quantity: int("quanity").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt").onUpdateNow(),
+});
 
 export const productImages = mysqlTable("productImage", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
@@ -45,24 +39,22 @@ export const productImages = mysqlTable("productImage", {
   sellerId: varchar("userId", { length: 255 }).notNull(),
 });
 
-export const users = mysqlTable("user", {
-  id: varchar("id", { length: 255 }).notNull().primaryKey(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", {
-    mode: "date",
-    fsp: 3,
-  }).default(sql`CURRENT_TIMESTAMP(3)`),
-  image: varchar("image", { length: 255 }),
-});
-
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
-}));
-
-export const userProductsRelations = relations(users, ({ many }) => ({
-  products: many(products),
-}));
+export const users = mysqlTable(
+  "user",
+  {
+    id: varchar("id", { length: 255 }).notNull().primaryKey(),
+    name: varchar("name", { length: 255 }),
+    email: varchar("email", { length: 255 }).notNull(),
+    emailVerified: timestamp("emailVerified", {
+      mode: "date",
+      fsp: 3,
+    }).default(sql`CURRENT_TIMESTAMP(3)`),
+    image: varchar("image", { length: 255 }),
+  },
+  (user) => ({
+    sellerIdx: index("seller_idx").on(user.id),
+  }),
+);
 
 export const accounts = mysqlTable(
   "account",
@@ -90,6 +82,15 @@ export const accounts = mysqlTable(
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
   user: one(users, { fields: [accounts.userId], references: [users.id] }),
+}));
+
+export const usersRelations = relations(users, ({ many }) => ({
+  accounts: many(accounts),
+  products: many(products),
+}));
+
+export const productsRelations = relations(products, ({ one }) => ({
+  user: one(users, { fields: [products.sellerId], references: [users.id] }),
 }));
 
 export const sessions = mysqlTable(
