@@ -66,7 +66,7 @@ async function CrudShowcase() {
   const session = await getServerAuthSession();
   if (!session?.user) return null;
 
-  const allProducts = await api.product.getPublished.query();
+  const allProducts = await api.product.getAll.query({});
   return (
     <div className="w-full max-w-xs">
       Product listing

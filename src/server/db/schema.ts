@@ -24,6 +24,9 @@ export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 export const categories = mysqlTable("category", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   name: varchar("name", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
 });
 export const products = mysqlTable("product", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
@@ -44,6 +47,9 @@ export const productImages = mysqlTable("productImage", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   url: varchar("url", { length: 255 }).notNull(),
   productId: varchar("productId", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
 });
 
 export const users = mysqlTable(

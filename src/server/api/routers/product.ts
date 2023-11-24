@@ -4,7 +4,7 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { productImages, products } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { response } from "./index";
-import { users } from "../../db/schema";
+
 const PRODUCTS_PER_PAGE = 20;
 export const TProductObject = z.object({
   name: z.string().min(1),
@@ -54,7 +54,7 @@ export const productRouter = createTRPCRouter({
     .input(
       z.object({
         isPublished: z.boolean().default(true),
-        page: z.number().default(1),
+        page: z.number().default(0),
       }),
     )
     .query(({ ctx, input }) => {
@@ -72,7 +72,7 @@ export const productRouter = createTRPCRouter({
       z.object({
         userId: z.string(),
         isPublished: z.boolean().default(true),
-        page: z.number().default(1),
+        page: z.number().default(0),
       }),
     )
     .query(({ ctx, input }) => {
