@@ -5,7 +5,7 @@ import { productImages, products } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { response } from "./index";
 import { users } from "../../db/schema";
-
+const PRODUCTS_PER_PAGE = 20;
 export const TProductObject = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
@@ -39,7 +39,6 @@ export const productRouter = createTRPCRouter({
         sellerId: ctx.session.user.id,
       });
       const productId = newProduct.insertId;
-
       // add images to the product using productId
       if (input.images && input.images.length > 0) {
         input.images.map(async (image) => {
@@ -51,29 +50,39 @@ export const productRouter = createTRPCRouter({
       }
     }),
 
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.db.query.products.findMany({
-      orderBy: (products, { desc }) => [desc(products.createdAt)],
-      limit: 20,
-    });
-  }),
-
-  getPublished: publicProcedure.query(({ ctx }) => {
-    return ctx.db.query.products.findMany({
-      where: (products, { eq }) => eq(products.isPublished, true),
-      orderBy: (products, { desc }) => [desc(products.createdAt)],
-      limit: 20,
-    });
-  }),
+  getAll: publicProcedure
+    .input(
+      z.object({
+        isPublished: z.boolean().default(true),
+        page: z.number().default(1),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      return ctx.db.query.products.findMany({
+        where: (products, { eq }) =>
+          eq(products.isPublished, input.isPublished),
+        orderBy: (products, { desc }) => [desc(products.createdAt)],
+        offset: input.page * PRODUCTS_PER_PAGE,
+        limit: PRODUCTS_PER_PAGE,
+      });
+    }),
 
   getProductByUser: publicProcedure
-    .input(z.object({ userId: z.string(), isPublished: z.boolean() }))
+    .input(
+      z.object({
+        userId: z.string(),
+        isPublished: z.boolean().default(true),
+        page: z.number().default(1),
+      }),
+    )
     .query(({ ctx, input }) => {
       return ctx.db.query.products.findMany({
         where: (products, { eq }) =>
           eq(products.sellerId, input.userId) &&
           eq(products.isPublished, input.isPublished),
         orderBy: (products, { desc }) => [desc(products.createdAt)],
+        offset: input.page * PRODUCTS_PER_PAGE,
+        limit: PRODUCTS_PER_PAGE,
       });
     }),
 });
