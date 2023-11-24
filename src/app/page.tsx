@@ -67,7 +67,6 @@ async function CrudShowcase() {
   if (!session?.user) return null;
 
   const allProducts = await api.product.getAll.query();
-  console.log(allProducts);
   return (
     <div className="w-full max-w-xs">
       Product listing
