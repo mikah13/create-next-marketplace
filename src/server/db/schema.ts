@@ -9,6 +9,7 @@ import {
   text,
   timestamp,
   varchar,
+  boolean,
 } from "drizzle-orm/mysql-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
@@ -20,13 +21,19 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
+export const categories = mysqlTable("category", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  name: varchar("name", { length: 255 }).notNull(),
+});
 export const products = mysqlTable("product", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   sellerId: varchar("sellerId", { length: 255 }).notNull(),
+  categoryId: varchar("categoryId", { length: 255 }),
   name: varchar("name", { length: 255 }).notNull(),
   description: text("description"),
   price: float("price").notNull(),
   quantity: int("quanity").notNull(),
+  isPublished: boolean("isPublished").notNull(),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -92,6 +99,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const productsRelations = relations(products, ({ one, many }) => ({
   user: one(users, { fields: [products.sellerId], references: [users.id] }),
   productImages: many(productImages),
+  categories: many(categories),
 }));
 
 export const productImagesRelations = relations(productImages, ({ one }) => ({
