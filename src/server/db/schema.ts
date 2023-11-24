@@ -21,6 +21,24 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
+export const reviews = mysqlTable(
+  "review",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    productId: bigint("productId", { mode: "number" }).notNull(),
+    reviewerId: bigint("reviewerId", { mode: "number" }).notNull(),
+    rating: int("rating").notNull(),
+    comment: text("comment"),
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+  },
+  (review) => ({
+    pk: primaryKey(review.productId, review.reviewerId),
+  }),
+);
+
 export const categories = mysqlTable("category", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -100,11 +118,13 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   products: many(products),
+  reviews: many(reviews),
 }));
 
 export const productsRelations = relations(products, ({ one, many }) => ({
-  user: one(users, { fields: [products.sellerId], references: [users.id] }),
+  users: one(users, { fields: [products.sellerId], references: [users.id] }),
   productImages: many(productImages),
+  reviews: many(reviews),
 }));
 
 export const productImagesRelations = relations(productImages, ({ one }) => ({
@@ -118,6 +138,14 @@ export const categoriesRelations = relations(
   categories,
   ({ one, many }) => ({}),
 );
+
+export const reviewsRelations = relations(reviews, ({ one, many }) => ({
+  users: one(users, { fields: [reviews.reviewerId], references: [users.id] }),
+  product: one(products, {
+    fields: [reviews.productId],
+    references: [products.id],
+  }),
+}));
 export const sessions = mysqlTable(
   "session",
   {
