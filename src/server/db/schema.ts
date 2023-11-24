@@ -47,7 +47,6 @@ export const categories = mysqlTable("category", {
     .notNull(),
 });
 
-
 export const products = mysqlTable("product", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   sellerId: varchar("sellerId", { length: 255 }).notNull(),

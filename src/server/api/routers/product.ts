@@ -50,6 +50,22 @@ export const productRouter = createTRPCRouter({
       }
     }),
 
+  delete: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const deleteItem = await ctx.db
+        .delete(products)
+        .where(
+          eq(products.id, Number(input.id)) && eq(products.sellerId, userId),
+        );
+      return response("record successfully deleted");
+    }),
+
   getAll: publicProcedure
     .input(
       z.object({
