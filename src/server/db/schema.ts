@@ -28,7 +28,7 @@ export const categories = mysqlTable("category", {
 export const products = mysqlTable("product", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   sellerId: varchar("sellerId", { length: 255 }).notNull(),
-  categoryId: varchar("categoryId", { length: 255 }),
+  category: varchar("category", { length: 255 }),
   name: varchar("name", { length: 255 }).notNull(),
   description: text("description"),
   price: float("price").notNull(),
@@ -99,7 +99,6 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const productsRelations = relations(products, ({ one, many }) => ({
   user: one(users, { fields: [products.sellerId], references: [users.id] }),
   productImages: many(productImages),
-  categories: many(categories),
 }));
 
 export const productImagesRelations = relations(productImages, ({ one }) => ({
@@ -109,6 +108,10 @@ export const productImagesRelations = relations(productImages, ({ one }) => ({
   }),
 }));
 
+export const categoriesRelations = relations(
+  categories,
+  ({ one, many }) => ({}),
+);
 export const sessions = mysqlTable(
   "session",
   {

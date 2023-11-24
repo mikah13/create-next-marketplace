@@ -2,16 +2,35 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 import { productImages, products } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
+import { response } from "./index";
+import { users } from "../../db/schema";
 
 export const TProductObject = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   price: z.number().nonnegative(),
   quantity: z.number().nonnegative(),
+  isPublished: z.boolean(),
   images: z.array(z.string()).optional(),
+  productId: z.string().optional(),
 });
 
 export const productRouter = createTRPCRouter({
+  update: protectedProcedure
+    .input(TProductObject)
+    .mutation(async ({ ctx, input }) => {
+      const { productId } = input;
+      if (productId !== undefined) {
+        const updateProduct = await ctx.db
+          .update(products)
+          .set({ ...input })
+          .where(eq(products.id, Number(productId)));
+        return updateProduct;
+      }
+      return response("No record found");
+    }),
+
   create: protectedProcedure
     .input(TProductObject)
     .mutation(async ({ ctx, input }) => {
@@ -35,6 +54,26 @@ export const productRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.db.query.products.findMany({
       orderBy: (products, { desc }) => [desc(products.createdAt)],
+      limit: 20,
     });
   }),
+
+  getPublished: publicProcedure.query(({ ctx }) => {
+    return ctx.db.query.products.findMany({
+      where: (products, { eq }) => eq(products.isPublished, true),
+      orderBy: (products, { desc }) => [desc(products.createdAt)],
+      limit: 20,
+    });
+  }),
+
+  getProductByUser: publicProcedure
+    .input(z.object({ userId: z.string(), isPublished: z.boolean() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.query.products.findMany({
+        where: (products, { eq }) =>
+          eq(products.sellerId, input.userId) &&
+          eq(products.isPublished, input.isPublished),
+        orderBy: (products, { desc }) => [desc(products.createdAt)],
+      });
+    }),
 });
