@@ -58,7 +58,7 @@ export const productRouter = createTRPCRouter({
       }),
     )
     .query(({ ctx, input }) => {
-      co ctx.db.query.products.findMany({
+      return ctx.db.query.products.findMany({
         where: (products, { eq }) =>
           eq(products.isPublished, input.isPublished),
         orderBy: (products, { desc }) => [desc(products.createdAt)],
