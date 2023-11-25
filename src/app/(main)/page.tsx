@@ -4,6 +4,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import { CreateProduct } from "../_components/create-product";
 import Hero from "@/components/Hero";
+import ForSale from "@/components/ForSale";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
@@ -62,6 +63,13 @@ export default async function Home() {
     // </main>
     <main>
       <Hero />
+
+      {/* <div>
+        <h2>Explore trending categories</h2>
+        <p>The top searches on marketplace</p>
+        <div className="md:cols-span-4 col-span-1  grid"></div>
+      </div> */}
+      <ForSale />
     </main>
   );
 }

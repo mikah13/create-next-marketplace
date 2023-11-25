@@ -7,7 +7,7 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen w-full">
       <h1>main layout</h1>
       <Header />
       {children}

@@ -11,7 +11,7 @@ type Props = {
 const CustomLink = ({ href, className, children }: Props) => {
   return (
     <Link
-      href={href || "/"}
+      href={href ?? "/"}
       className={cn(
         "text-gray-700 transition hover:opacity-75 dark:text-gray-200",
         className,
