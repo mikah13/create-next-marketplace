@@ -1,11 +1,12 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
+    <section className="to-indigo-400w-full bg-gradient-to-bl from-blue-300 via-purple-100  py-12 md:py-24 lg:py-32">
       <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
         <div className="space-y-3">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-6xl">
@@ -16,8 +17,8 @@ const Hero = (props: Props) => {
             Discover amazing deals and essential services in your community.
           </p>
         </div>
-        <div className="relative w-full max-w-sm space-y-2">
-          {/* <Input className="pl-10 pr-40" placeholder="Search Craigslist" /> */}
+        <div className=" flex w-full  space-x-2">
+          <Input className="" placeholder="I want to find..." />
           <Button type="submit">Search</Button>
         </div>
         <div className="mt-4 flex space-x-2">
