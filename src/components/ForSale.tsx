@@ -2,6 +2,7 @@ import React from "react";
 import CustomLink from "./ui/link";
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
+import BasicCard from "./card/BasicCard";
 
 type Props = {};
 
@@ -25,7 +26,9 @@ const ForSale = (props: Props) => {
             </div>
           </ScrollArea>
         </div>
-        <div className="col-span-4">asdf</div>
+        <div className="col-span-4">
+          <BasicCard />
+        </div>
       </div>
     </section>
   );
