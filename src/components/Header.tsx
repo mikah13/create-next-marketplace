@@ -33,8 +33,8 @@ const Header = async () => {
             <Sidebar />
           </div>
         </div>
-        <NavigationBar />
       </div>
+      <NavigationBar />
     </header>
   );
 };

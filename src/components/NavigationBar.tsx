@@ -18,7 +18,7 @@ import { NAV_LINKS } from "@/lib/constant";
 
 const NavigationBar = () => {
   return (
-    <div className="hidden items-center justify-around md:flex">
+    <div className="hidden items-center justify-around  border-t-2 border-blue-200 py-2 md:flex ">
       <NavigationMenu>
         <NavigationMenuList>
           {NAV_LINKS.map((link, index) => (
