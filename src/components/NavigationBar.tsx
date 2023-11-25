@@ -47,7 +47,7 @@ const NAV_LINKS: TLinks[] = [
 ];
 const NavigationBar = () => {
   return (
-    <div className="flex items-center justify-around">
+    <div className="hidden items-center justify-around md:flex">
       <NavigationMenu>
         <NavigationMenuList>
           {NAV_LINKS.map((link) => (
