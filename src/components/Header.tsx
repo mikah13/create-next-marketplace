@@ -1,4 +1,9 @@
 import React from "react";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuLink,
+} from "./ui/navigation-menu";
 
 type Props = {};
 
