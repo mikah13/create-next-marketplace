@@ -7,12 +7,13 @@ import { Separator } from "./ui/separator";
 import NavigationBar from "./NavigationBar";
 import Image from "next/image";
 import { Sidebar } from "./Sidebar";
+import SectionWrapper from "./SectionWrapper";
 
 const Header = async () => {
   const session = await getServerAuthSession();
   return (
     <header className="bg-white shadow">
-      <div className="mx-auto max-w-7xl px-6 py-3">
+      <SectionWrapper>
         <div className="flex items-center justify-between">
           <div className="">
             <Image src="/logo.png" height={50} width={50} alt="Page logo" />
@@ -33,7 +34,7 @@ const Header = async () => {
             <Sidebar />
           </div>
         </div>
-      </div>
+      </SectionWrapper>
       <NavigationBar />
     </header>
   );

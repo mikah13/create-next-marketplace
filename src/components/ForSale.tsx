@@ -18,9 +18,9 @@ const ForSale = (props: Props) => {
         <CustomLink>View All</CustomLink>
       </div>
 
-      <div className="grid h-72 grid-cols-5">
+      <div className="grid h-96 grid-cols-5">
         <div className="col-span-1">
-          <ScrollArea className="h-72">
+          <ScrollArea className="h-96">
             <div className=" flex flex-col space-y-2">
               {new Array(10).fill(1).map((category, index) => (
                 <Button
@@ -34,8 +34,8 @@ const ForSale = (props: Props) => {
             </div>
           </ScrollArea>
         </div>
-        <ScrollArea className="col-span-4 h-72 w-full ">
-          <div className="col-span-4 grid max-h-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <ScrollArea className="col-span-4 h-96 w-full ">
+          <div className="col-span-4 grid max-h-full grid-cols-1 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
             <BasicCard />
             <BasicCard />
             <BasicCard />
