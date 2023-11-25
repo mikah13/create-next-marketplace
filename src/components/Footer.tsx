@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import React from 'react'
+import Image from "next/image";
+import React from "react";
+import CustomLink from "./ui/link";
+import { NAV_LINKS } from "@/lib/constant";
 
-type Props = {}
-
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
@@ -139,124 +139,55 @@ const Footer = (props: Props) => {
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
             <div>
-              <p className="font-medium text-gray-900 dark:text-white">
-                Services
-              </p>
+              <p className="font-medium text-gray-900 dark:text-white">About</p>
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    1on1 Coaching
-                  </a>
+                  <CustomLink>About us</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Company Review
-                  </a>
+                  <CustomLink>Career</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Accounts Review
-                  </a>
+                  <CustomLink>Safety</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    HR Consulting
-                  </a>
+                  <CustomLink>Privacy</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    SEO Optimisation
-                  </a>
+                  <CustomLink>Terms</CustomLink>
                 </li>
               </ul>
             </div>
 
             <div>
               <p className="font-medium text-gray-900 dark:text-white">
-                Company
+                Categories
               </p>
 
               <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    About
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Meet the Team
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Accounts Review
-                  </a>
-                </li>
+                {NAV_LINKS.map((link, index) => (
+                  <li key={index}>
+                    <CustomLink>{link.label}</CustomLink>
+                  </li>
+                ))}
               </ul>
             </div>
 
             <div>
               <p className="font-medium text-gray-900 dark:text-white">
-                Helpful Links
+                Resources
               </p>
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Contact
-                  </a>
+                  <CustomLink>Contact</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    FAQs
-                  </a>
+                  <CustomLink> FAQs</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Live Chat
-                  </a>
+                  <CustomLink> Live Chat</CustomLink>
                 </li>
               </ul>
             </div>
@@ -266,39 +197,13 @@ const Footer = (props: Props) => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Accessibility
-                  </a>
+                  <CustomLink>Accessibility</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Returns Policy
-                  </a>
+                  <CustomLink> Refund Policy</CustomLink>
                 </li>
-
                 <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Refund Policy
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    Hiring Statistics
-                  </a>
+                  <CustomLink> Returns Policy</CustomLink>
                 </li>
               </ul>
             </div>
@@ -311,6 +216,6 @@ const Footer = (props: Props) => {
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
