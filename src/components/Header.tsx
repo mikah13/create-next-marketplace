@@ -2,10 +2,11 @@ import React from "react";
 
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
-import { Menu, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Separator } from "./ui/separator";
 import NavigationBar from "./NavigationBar";
 import Image from "next/image";
+import { Sidebar } from "./Sidebar";
 
 const Header = async () => {
   const session = await getServerAuthSession();
@@ -29,9 +30,7 @@ const Header = async () => {
             )}
           </div>
           <div className="block md:hidden">
-            <Button variant="outline" size="icon">
-              <Menu />
-            </Button>
+            <Sidebar />
           </div>
         </div>
         <NavigationBar />

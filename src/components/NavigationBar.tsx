@@ -14,44 +14,15 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { NAV_LINKS } from "@/lib/constant";
 
-type TLinks = {
-  href: string;
-  label: string;
-};
-const NAV_LINKS: TLinks[] = [
-  {
-    href: "/housing",
-    label: "Housing",
-  },
-  {
-    href: "/communities",
-    label: "Communities",
-  },
-  {
-    href: "/services",
-    label: "Services",
-  },
-  {
-    href: "/sale",
-    label: "For Sale",
-  },
-  {
-    href: "/events",
-    label: "Events",
-  },
-  {
-    href: "/jobs",
-    label: "Jobs",
-  },
-];
 const NavigationBar = () => {
   return (
     <div className="hidden items-center justify-around md:flex">
       <NavigationMenu>
         <NavigationMenuList>
-          {NAV_LINKS.map((link) => (
-            <NavigationMenuItem key={link}>
+          {NAV_LINKS.map((link, index) => (
+            <NavigationMenuItem key={index}>
               <Link href={link.href} legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   {link.label}
