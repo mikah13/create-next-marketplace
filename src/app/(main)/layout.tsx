@@ -1,7 +1,4 @@
-// import { useEffect } from "react";
-// import Appbar from "@/components/appbar";
-// import Footer from "@/components/footer";
-
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 export default function HomeLayout({
@@ -14,6 +11,7 @@ export default function HomeLayout({
       <h1>main layout</h1>
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }
