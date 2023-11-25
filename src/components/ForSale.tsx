@@ -26,7 +26,10 @@ const ForSale = (props: Props) => {
             </div>
           </ScrollArea>
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 grid max-h-full grid-cols-1 md:grid-cols-4">
+          <BasicCard />
+          <BasicCard />
+          <BasicCard />
           <BasicCard />
         </div>
       </div>
