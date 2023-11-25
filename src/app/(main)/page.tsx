@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
-import { CreateProduct } from "./_components/create-product";
+import { CreateProduct } from "../_components/create-product";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
