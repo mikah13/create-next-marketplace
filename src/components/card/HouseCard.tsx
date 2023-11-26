@@ -42,7 +42,7 @@ const HouseCard = ({
   return (
     <Card
       className={cn(
-        "col-span-1 mx-auto h-64 w-64  border-none shadow-none ",
+        " lg:max-w-64 col-span-1  mx-auto h-64  w-full border-none shadow-none ",
         className,
       )}
     >

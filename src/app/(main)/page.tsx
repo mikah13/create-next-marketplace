@@ -6,6 +6,7 @@ import { CreateProduct } from "../_components/create-product";
 import Hero from "@/components/Hero";
 import ForSale from "@/components/ForSale";
 import Housing from "@/components/Housing";
+import Event from "@/components/Event";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
@@ -72,7 +73,7 @@ export default async function Home() {
       </div> */}
       <ForSale />
       <Housing />
-      {/* <Event /> */}
+      <Event />
       {/* <Job /> */}
       {/* <Communities /> */}
     </main>
