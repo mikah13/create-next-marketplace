@@ -2,20 +2,12 @@ import { TLinks } from "./type";
 
 export const NAV_LINKS: TLinks[] = [
   {
-    href: "/housing",
-    label: "Housing",
-  },
-  {
-    href: "/communities",
-    label: "Communities",
-  },
-  {
-    href: "/services",
-    label: "Services",
-  },
-  {
     href: "/sale",
     label: "For Sale",
+  },
+  {
+    href: "/housing",
+    label: "Housing",
   },
   {
     href: "/events",
@@ -24,5 +16,9 @@ export const NAV_LINKS: TLinks[] = [
   {
     href: "/jobs",
     label: "Jobs",
+  },
+  {
+    href: "/communities",
+    label: "Communities",
   },
 ];

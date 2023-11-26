@@ -14,6 +14,7 @@ import CustomLink from "../ui/link";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Bookmark, Star } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 type Props = {
   className?: string;
@@ -23,12 +24,16 @@ type Props = {
   price?: string;
   id?: string;
   bookmark?: boolean;
+  bathroom?: number;
+  bedroom?: number;
 };
 
-const BasicCard = ({
+const HouseCard = ({
   className,
   title,
   description,
+  bedroom,
+  bathroom,
   image,
   price,
   id,
@@ -37,23 +42,30 @@ const BasicCard = ({
   return (
     <Card
       className={cn(
-        "col-span-1 mx-auto h-64 w-48  border-none shadow-none ",
+        "col-span-1 mx-auto h-64 w-64  border-none shadow-none ",
         className,
       )}
     >
-      <CardHeader className="relative h-48 w-48 rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
+      <CardHeader className="relative h-48 w-full rounded-lg bg-[url('https://plus.unsplash.com/premium_photo-1661964475795-f0cb85767a88')] bg-cover bg-center bg-no-repeat object-cover">
         <Badge variant={"secondary"} className="absolute bottom-2 right-2">
-          $12.12
+          $1444
         </Badge>
       </CardHeader>
       <CardContent className="border-none px-0 pt-2">
         <CustomLink className="cursor-pointer text-lg font-medium text-black hover:text-blue-900">
           test item link
         </CustomLink>
-        <p className="text-md text-gray-600">category</p>
+        <div className="flex h-5 flex-row items-center ">
+          <span className="text-md text-gray-600">0 bathroom</span>{" "}
+          <Separator
+            orientation="vertical"
+            className="mx-2 h-4  justify-center text-blue-900"
+          />{" "}
+          <span className="text-md text-gray-600">0 bedroom</span>
+        </div>
       </CardContent>
     </Card>
   );
 };
 
-export default BasicCard;
+export default HouseCard;

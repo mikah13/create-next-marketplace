@@ -5,6 +5,7 @@ import { api } from "@/trpc/server";
 import { CreateProduct } from "../_components/create-product";
 import Hero from "@/components/Hero";
 import ForSale from "@/components/ForSale";
+import Housing from "@/components/Housing";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
@@ -70,6 +71,10 @@ export default async function Home() {
         <div className="md:cols-span-4 col-span-1  grid"></div>
       </div> */}
       <ForSale />
+      <Housing />
+      {/* <Event /> */}
+      {/* <Job /> */}
+      {/* <Communities /> */}
     </main>
   );
 }
