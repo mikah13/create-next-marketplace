@@ -11,6 +11,8 @@ const topicsData = [
   "Gigs",
 ];
 console.log("SEEDING START : DB TOPICS ======");
+console.log("REMOVING : DB TOPICS ======");
+await db.delete(topics);
 await db.insert(topics).values(
   topicsData.map((t) => {
     return {
@@ -18,6 +20,22 @@ await db.insert(topics).values(
     };
   }),
 );
+console.log("SEEDING END : DB TOPICS ======");
+
+console.log("SEEDING START : DB TOPICS ======");
+console.log("REMOVING : DB TOPICS ======");
+await db.delete(topics);
+await db.insert(topics).values(
+  topicsData.map((t) => {
+    return {
+      name: t,
+    };
+  }),
+);
+console.log("SEEDING END : DB TOPICS ======");
+
+
+
 
 // console.log("SEEDING END: DB TOPICS ======");
 
