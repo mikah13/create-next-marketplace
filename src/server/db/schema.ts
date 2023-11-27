@@ -50,20 +50,28 @@ export const categories = mysqlTable("category", {
     .notNull(),
 });
 
-export const products = mysqlTable("product", {
-  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-  sellerId: varchar("sellerId", { length: 255 }).notNull(),
-  category: varchar("category", { length: 255 }),
-  name: varchar("name", { length: 255 }).notNull(),
-  description: text("description"),
-  price: float("price").notNull(),
-  quantity: int("quanity").notNull(),
-  isPublished: boolean("isPublished").notNull(),
-  createdAt: timestamp("created_at")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
-});
+export const products = mysqlTable(
+  "product",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    sellerId: varchar("sellerId", { length: 255 }).notNull(),
+    categoryId: varchar("categoryId", { length: 255 }).notNull(),
+    name: varchar("name", { length: 255 }).notNull(),
+    description: text("description"),
+    price: float("price").notNull(),
+    quantity: int("quanity").notNull(),
+    isPublished: boolean("isPublished").notNull(),
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+  },
+  (product) => {
+    return {
+      nameIdx: index("search_cluster").on(product.name),
+    };
+  },
+);
 
 export const productImages = mysqlTable("productImage", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
@@ -129,6 +137,10 @@ export const productsRelations = relations(products, ({ one, many }) => ({
   users: one(users, { fields: [products.sellerId], references: [users.id] }),
   productImages: many(productImages),
   reviews: many(reviews),
+  categories: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
 }));
 
 export const productImagesRelations = relations(productImages, ({ one }) => ({
@@ -143,6 +155,7 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
     fields: [categories.topicId],
     references: [topics.id],
   }),
+  products: many(products),
 }));
 export const topicsRelations = relations(topics, ({ one, many }) => ({
   categories: one(categories),
