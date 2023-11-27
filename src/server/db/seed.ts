@@ -232,33 +232,36 @@ const categoriesData = new Map([
   ],
 ]);
 
-console.log("SEEDING START : DB TOPICS ======");
-console.log("REMOVING : DB TOPICS ======");
-await db.delete(topics);
-await db.insert(topics).values(
-  topicsData.map((t) => {
-    return {
-      name: t,
-    };
-  }),
-);
-console.log("SEEDING END : DB CATEGORIES ======");
+// console.log("SEEDING START : DB TOPICS ======");
+// console.log("REMOVING : DB TOPICS ======");
+// await db.delete(topics);
+// await db.insert(topics).values(
+//   topicsData.map((t) => {
+//     return {
+//       name: t,
+//     };
+//   }),
+// );
+// console.log("SEEDING END : DB CATEGORIES ======");
 
 console.log("SEEDING START : DB CATEGORIES ======");
 console.log("REMOVING : DB CATEGORIES ======");
 await db.delete(categories);
 
-for (const [key, value] of Object.entries(categoriesData)) {
-  const getTopic = db.select().from(topics).where(eq(topics.name, key));
-  console.log(getTopic);
-  // await db.insert(categories).values(
-  //     value.map(v => {
-  //         return {
-  //             name: v,
-  //             topicId:getTopic.
-  //         }
-  //     })
-  // );
+for (const [key, value] of categoriesData) {
+  //   console.log(key, value);
+
+  const getTopic = await db.query.topics.findFirst({
+    where: eq(topics.name, key),
+  });
+  await db.insert(categories).values(
+    value.map((v) => {
+      return {
+        name: v,
+        topicId: getTopic.id,
+      };
+    }),
+  );
 }
 
 console.log("SEEDING END : DB CATEGORIES ======");
