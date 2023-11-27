@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 
 export const TCategoryObject = z.object({
   name: z.string().min(1),
+  topicId: z.string().min(1),
 });
 export const categoryRouter = createTRPCRouter({
   create: protectedProcedure

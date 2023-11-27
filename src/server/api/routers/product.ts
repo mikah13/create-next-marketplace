@@ -14,6 +14,7 @@ export const TProductObject = z.object({
   isPublished: z.boolean(),
   images: z.array(z.string()).optional(),
   productId: z.string().optional(),
+  categoryId: z.string(),
 });
 
 export const productRouter = createTRPCRouter({
@@ -36,6 +37,7 @@ export const productRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const newProduct = await ctx.db.insert(products).values({
         ...input,
+
         sellerId: ctx.session.user.id,
       });
       const productId = newProduct.insertId;
