@@ -1,12 +1,13 @@
 {
   "name": "marketplace",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "next build",
     "db:push": "dotenv drizzle-kit push:mysql",
     "db:studio": "dotenv drizzle-kit studio",
-    "db:seed": "node  --loader esbuild-register/loader -r esbuild-register  ./src/server/db/seed.ts",
+    "db:seed": "dotenv npx tsx ./src/server/db/seed.ts",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
@@ -33,7 +34,6 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "drizzle-orm": "^0.28.5",
-    "esbuild-register": "^3.5.0",
     "lucide-react": "^0.293.0",
     "next": "^14.0.0",
     "next-auth": "^4.24.4",

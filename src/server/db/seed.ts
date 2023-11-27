@@ -1,17 +1,7 @@
-import { Client } from "@planetscale/database";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { db } from ".";
+import { topics } from "./schema";
 
-import { env } from "@/env.mjs";
-import * as schema from "./schema";
-
-export const db = drizzle(
-  new Client({
-    url: env.DATABASE_URL,
-  }).connection(),
-  { schema },
-);
-
-const topics = [
+const topicsData = [
   "Community",
   "Housing",
   "Jobs",
@@ -21,8 +11,8 @@ const topics = [
   "Gigs",
 ];
 console.log("SEEDING START : DB TOPICS ======");
-await db.insert(schema.topics).values(
-  topics.map((t) => {
+await db.insert(topics).values(
+  topicsData.map((t) => {
     return {
       name: t,
     };
