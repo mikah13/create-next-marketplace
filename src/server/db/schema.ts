@@ -21,23 +21,17 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const mysqlTable = mysqlTableCreator((name) => `marketplace_${name}`);
 
-export const reviews = mysqlTable(
-  "review",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    productId: bigint("productId", { mode: "number" }).notNull(),
-    reviewerId: bigint("reviewerId", { mode: "number" }).notNull(),
-    rating: int("rating").notNull(),
-    comment: text("comment"),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
-  },
-  (review) => ({
-    pk: primaryKey(review.productId, review.reviewerId),
-  }),
-);
+export const reviews = mysqlTable("review", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  productId: bigint("productId", { mode: "number" }).notNull(),
+  reviewerId: bigint("reviewerId", { mode: "number" }).notNull(),
+  rating: int("rating").notNull(),
+  comment: text("comment"),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+});
 
 export const topics = mysqlTable("topics", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
