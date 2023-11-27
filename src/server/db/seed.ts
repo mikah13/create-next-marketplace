@@ -11,6 +11,26 @@ export const db = drizzle(
   { schema },
 );
 
-console.log("SEEDING START : DB CATEGORIES ======");
-const newCategories = await db.insert(schema.categories).values(12);
-console.log("SEEDING END: DB CATEGORIES ======");
+const topics = [
+  "Community",
+  "Housing",
+  "Jobs",
+  "Services",
+  "Discussion Forums",
+  "For Sale",
+  "Gigs",
+];
+console.log("SEEDING START : DB TOPICS ======");
+await db.insert(schema.topics).values(
+  topics.map((t) => {
+    return {
+      name: t,
+    };
+  }),
+);
+
+// console.log("SEEDING END: DB TOPICS ======");
+
+// console.log("SEEDING START : DB CATEGORIES ======");
+// const categories = await db.insert(schema.categories).values(12);
+// console.log("SEEDING END: DB CATEGORIES ======");
