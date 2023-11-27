@@ -3,9 +3,8 @@ import SectionWrapper from "./SectionWrapper";
 import CustomLink from "./ui/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
-type Props = {};
 
-const Community = (props: Props) => {
+const Community = () => {
   return (
     <SectionWrapper>
       <div className="flex justify-between py-8">

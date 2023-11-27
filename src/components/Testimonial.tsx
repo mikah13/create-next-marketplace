@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const Testimonial = (props: Props) => {
+const Testimonial = () => {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

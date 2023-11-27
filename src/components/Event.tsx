@@ -6,9 +6,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import HouseCard from "./card/HouseCard";
 
-type Props = {};
-
-const Event = (props: Props) => {
+const Event = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   return (
     <SectionWrapper>
