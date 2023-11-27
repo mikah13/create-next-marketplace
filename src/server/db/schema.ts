@@ -39,9 +39,18 @@ export const reviews = mysqlTable(
   }),
 );
 
+export const topics = mysqlTable("topics", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  name: varchar("name", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
+
 export const categories = mysqlTable("category", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   name: varchar("name", { length: 255 }).notNull(),
+  topicId: varchar("topicId", { length: 255 }).notNull(),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -135,10 +144,15 @@ export const productImagesRelations = relations(productImages, ({ one }) => ({
   }),
 }));
 
-export const categoriesRelations = relations(
-  categories,
-  ({ one, many }) => ({}),
-);
+export const categoriesRelations = relations(categories, ({ one, many }) => ({
+  topics: one(topics, {
+    fields: [categories.topicId],
+    references: [topics.id],
+  }),
+}));
+export const topicsRelations = relations(topics, ({ one, many }) => ({
+  categories: one(categories),
+}));
 
 export const reviewsRelations = relations(reviews, ({ one, many }) => ({
   users: one(users, { fields: [reviews.reviewerId], references: [users.id] }),
