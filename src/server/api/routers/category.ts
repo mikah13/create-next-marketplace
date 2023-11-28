@@ -36,4 +36,21 @@ export const categoryRouter = createTRPCRouter({
       orderBy: (categories, { desc }) => [desc(categories.createdAt)],
     });
   }),
+
+  getCategoryByTopic: publicProcedure
+    .input(
+      z.object({
+        topic: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const topic = await ctx.db.query.topics.findFirst({
+        where: (topics, { eq }) => eq(topics.name, input.topic),
+      });
+      if (topic) {
+        return ctx.db.query.categories.findMany({
+          where: (categories, { eq }) => eq(categories.topicId, `${topic.id}`),
+        });
+      }
+    }),
 });

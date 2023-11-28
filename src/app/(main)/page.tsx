@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
 import ForSale from "@/components/ForSale";
 import Housing from "@/components/Housing";
 import Event from "@/components/Event";
-import Community from "@/components/Community";
+import Forums from "@/components/Forums";
 import Testimonial from "@/components/Testimonial";
 
 export default async function Home() {
@@ -76,7 +76,7 @@ export default async function Home() {
       <ForSale />
       <Housing />
       <Event />
-      <Community />
+      <Forums />
       <Testimonial />
     </main>
   );
