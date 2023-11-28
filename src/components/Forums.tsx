@@ -17,17 +17,15 @@ const Forums = async () => {
         </h2>
         <CustomLink>View All</CustomLink>
       </div>
-      <div className="grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {allForums &&
-          allForums.map((forum) => (
-            <Card key={forum.id} className="col-span-1">
-              <CardHeader className="flex flex-row items-center space-x-2">
-                <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-
-                <CardTitle>{forum.name}</CardTitle>
-              </CardHeader>
-            </Card>
-          ))}
+      <div className="grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {allForums?.map((forum) => (
+          <Card key={forum.id} className="col-span-1">
+            <CardHeader className="flex flex-row items-center space-x-2">
+              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+              <CardTitle>{forum.name}</CardTitle>
+            </CardHeader>
+          </Card>
+        ))}
       </div>
     </SectionWrapper>
   );

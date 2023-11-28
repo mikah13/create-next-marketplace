@@ -41,6 +41,7 @@ export const categoryRouter = createTRPCRouter({
     .input(
       z.object({
         topic: z.string(),
+        limit: z.number().default(12),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -50,6 +51,7 @@ export const categoryRouter = createTRPCRouter({
       if (topic) {
         return ctx.db.query.categories.findMany({
           where: (categories, { eq }) => eq(categories.topicId, `${topic.id}`),
+          limit: input.limit,
         });
       }
     }),
