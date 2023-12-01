@@ -57,7 +57,7 @@ export const products = mysqlTable(
     sellerId: varchar("sellerId", { length: 255 }).notNull(),
     categoryId: varchar("categoryId", { length: 255 }).notNull(),
     name: varchar("name", { length: 255 }).notNull(),
-    description: text("description"),
+    description: varchar("description", { length: 16383 }),
     price: float("price").notNull(),
     quantity: int("quanity").notNull(),
     isPublished: boolean("isPublished").notNull(),
@@ -68,7 +68,10 @@ export const products = mysqlTable(
   },
   (product) => {
     return {
-      searchCluster: index("search_cluster").on(product.name),
+      searchCluster: index("search_cluster").on(
+        product.name,
+        product.description,
+      ),
     };
   },
 );

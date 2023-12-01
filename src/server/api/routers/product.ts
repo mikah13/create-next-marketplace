@@ -75,7 +75,7 @@ export const productRouter = createTRPCRouter({
         sql`
       SELECT *
 FROM ${products}
-WHERE MATCH(${products.name}, ${products.description}) AGAINST (${query} IN NATURAL LANGUAGE MODE);;
+WHERE MATCH(${products.name}) AGAINST (${query} IN NATURAL LANGUAGE MODE);;
 `,
       );
 
