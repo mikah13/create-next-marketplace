@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from ".";
 import { categories, products, topics, users } from "./schema";
-
+import { faker } from '@faker-js/faker';
 const topicsData = [
   "Community",
   "Housing",
@@ -271,9 +271,16 @@ await db.delete(products);
 const user = db
   .select()
   .from(users)
-  .where(eq(users.email, "anhminhhoang13@gmail.com"));
-
-
+  .where(eq(users.email, "anhminhhoang13@gmail.com"))
+  .limit(1);
+  console.log(user)
+const NUMBER_OF_PRODUCTS = 100;
+// if (user[0]) {
+  // const id = user[0].id;
+// for (let i = 0; i < NUMBER_OF_PRODUCTS; i++) {
   
+// }
+// }
+
 
 console.log("SEEDING END : DB PRODUCTS ======");
