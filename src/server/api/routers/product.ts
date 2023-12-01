@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 import { productImages, products } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { response } from "./index";
 
 const PRODUCTS_PER_PAGE = 20;
@@ -67,7 +67,21 @@ export const productRouter = createTRPCRouter({
         );
       return response("record successfully deleted");
     }),
+  search: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { query } = input;
+      const result = await ctx.db.execute(
+        sql.raw(`
+      SELECT * 
+      FROM products 
+      WHERE MATCH(name, description)
+            AGAINST(${query} IN NATURAL LANGUAGE MODE)`),
+      );
 
+      console.log(result);
+      return result;
+    }),
   getAll: publicProcedure
     .input(
       z.object({

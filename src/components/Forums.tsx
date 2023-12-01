@@ -8,7 +8,12 @@ const Forums = async () => {
   const allForums = await api.category.getCategoryByTopic.query({
     topic: "Discussion Forums",
   });
-  // console.log(allForums);
+
+  const test = await api.product.search.query({
+    query: "test",
+  });
+  console.log(test);
+
   return (
     <SectionWrapper>
       <div className="flex justify-between py-8">
@@ -18,14 +23,16 @@ const Forums = async () => {
         <CustomLink>View All</CustomLink>
       </div>
       <div className="grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {allForums?.map((forum) => (
-          <Card key={forum.id} className="col-span-1">
-            <CardHeader className="flex flex-row items-center space-x-2">
-              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-              <CardTitle>{forum.name}</CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
+        {allForums
+          ? allForums.map((forum) => (
+              <Card key={forum.id} className="col-span-1">
+                <CardHeader className="flex flex-row items-center space-x-2">
+                  <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                  <CardTitle>{forum.name}</CardTitle>
+                </CardHeader>
+              </Card>
+            ))
+          : new Array(6).fill("").map((e, i) => <h1 key={i}>12</h1>)}
       </div>
     </SectionWrapper>
   );
