@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from ".";
-import { categories, topics } from "./schema";
+import { categories, products, topics, users } from "./schema";
 
 const topicsData = [
   "Community",
@@ -263,3 +263,17 @@ console.log("REMOVING : DB CATEGORIES ======");
 // }
 
 console.log("SEEDING END : DB CATEGORIES ======");
+
+console.log("SEEDING START : DB PRODUCTS ======");
+
+await db.delete(products);
+
+const user = db
+  .select()
+  .from(users)
+  .where(eq(users.email, "anhminhhoang13@gmail.com"));
+
+
+  
+
+console.log("SEEDING END : DB PRODUCTS ======");
