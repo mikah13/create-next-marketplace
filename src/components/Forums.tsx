@@ -1,25 +1,18 @@
-import React from "react";
-import SectionWrapper from "./SectionWrapper";
-import CustomLink from "./ui/link";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { api } from "@/trpc/server";
+import React from 'react';
+import SectionWrapper from './SectionWrapper';
+import CustomLink from './ui/link';
+import { Card, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { api } from '@/trpc/server';
 
 const Forums = async () => {
   const allForums = await api.category.getCategoryByTopic.query({
-    topic: "Discussion Forums",
+    topic: 'Discussion Forums',
   });
-
-  const test = await api.product.search.query({
-    query: "test",
-  });
-  console.log(test);
 
   return (
     <SectionWrapper>
       <div className="flex justify-between py-8">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Communities
-        </h2>
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">Communities</h2>
         <CustomLink>View All</CustomLink>
       </div>
       <div className="grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -32,7 +25,7 @@ const Forums = async () => {
                 </CardHeader>
               </Card>
             ))
-          : new Array(6).fill("").map((e, i) => <h1 key={i}>12</h1>)}
+          : new Array(6).fill('').map((e, i) => <h1 key={i}>12</h1>)}
       </div>
     </SectionWrapper>
   );
