@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
-import { productImages, products } from "@/server/db/schema";
+import { categories, productImages, products } from "@/server/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { response } from "./index";
 
@@ -72,14 +72,14 @@ export const productRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { query } = input;
       const result = await ctx.db.execute(
-        sql.raw(`
-      SELECT * 
-      FROM products 
-      WHERE MATCH(name, description)
-            AGAINST(${query} IN NATURAL LANGUAGE MODE)`),
+        sql`
+      SELECT *
+FROM ${products}
+WHERE MATCH(${products.name}, ${products.description}) AGAINST (${query} IN NATURAL LANGUAGE MODE);;
+`,
       );
 
-      console.log(result);
+      console.log(result.rows);
       return result;
     }),
   getAll: publicProcedure

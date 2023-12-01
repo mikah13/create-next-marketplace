@@ -68,10 +68,7 @@ export const products = mysqlTable(
   },
   (product) => {
     return {
-      searchCluster: index("search_cluster").on(
-        product.name,
-        product.description,
-      ),
+      searchCluster: index("search_cluster").on(product.name),
     };
   },
 );
