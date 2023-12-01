@@ -8,6 +8,7 @@
     "db:push": "dotenv drizzle-kit push:mysql",
     "db:studio": "dotenv drizzle-kit studio",
     "db:seed": "dotenv npx tsx ./src/server/db/seed.ts",
+    "db:migrate": "pnpm drizzle-kit generate:mysql",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",

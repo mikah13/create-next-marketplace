@@ -278,7 +278,9 @@ if (user[0]) {
     };
   });
 
+  console.log(insertProd);
   const response = await db.insert(products).values(insertProd);
+  console.log(response);
 }
 
 console.log('SEEDING END : DB PRODUCTS ======');
