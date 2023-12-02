@@ -1,14 +1,22 @@
-'use client'
-
 import { useSearchParams } from 'next/navigation'
+import SearchResult from './search-result'
 
-export default function Page() {
-	const searchParams = useSearchParams()
+export default function Page({
+	params,
+	searchParams,
+}: {
+	params: { slug: string }
+	searchParams: Record<string, string | string[] | undefined>
+}) {
+	const query = searchParams.query as string
 
-	const search = searchParams.get('query')
-
-	if (!search || search.trim() === '') {
-		return 'please enter a search'
+	if (!query || query.trim() === '') {
+		return <h1>please enter a search</h1>
 	}
-	return <>Search: {search}</>
+	
+	return (
+		<>
+			<SearchResult query={query} />
+		</>
+	)
 }

@@ -11,7 +11,7 @@ const Housing = () => {
           Housing
         </h2>
         <CustomLink>View All</CustomLink>
-      </div>{" "}
+      </div>
       <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <HouseCard />
         <HouseCard />
