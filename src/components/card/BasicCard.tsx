@@ -11,9 +11,9 @@ import { Bookmark, Star } from 'lucide-react'
 type Props = {
 	className?: string
 	title?: string
-	description?: string
+	description?: string | null
 	image?: string
-	price?: string
+	price?: number
 	id?: string
 	bookmark?: boolean
 }
