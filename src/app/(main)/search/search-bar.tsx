@@ -6,11 +6,17 @@ type Props = {}
 
 const SearchBar = (props: Props) => {
 	return (
-		<div className="flex h-16 items-center px-4 border">
-			<div className="flex items-center space-x-2">
-				<Input className="flex-grow" placeholder="Search" />
-				<Button variant="secondary">Search</Button>
+		<div className="flex flex-row h-16 w-full items-center  border p-0">
+			<div className="flex order-last items-center flex-row justify-evenly space-x-2 h-full  px-2">
+				<Button variant="outline">Save Search</Button>
+				<Button variant="outline">Save Search</Button>
+				<Button variant="outline">Save Search</Button>
 			</div>
+			<form className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
+				<Input className="w-1/2" placeholder="Search" />
+
+				<Button >Search</Button>
+			</form>
 		</div>
 	)
 }
