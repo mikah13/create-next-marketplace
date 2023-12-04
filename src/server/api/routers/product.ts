@@ -61,16 +61,19 @@ export const productRouter = createTRPCRouter({
 				.where(eq(products.id, Number(input.id)) && eq(products.sellerId, userId))
 			return response('record successfully deleted')
 		}),
-	search: publicProcedure.input(z.object({ query: z.string() })).query(async ({ ctx, input }) => {
-		const { query } = input
+	search: publicProcedure
+		.input(z.object({ query: z.string(), page: z.number().default(0) }))
+		.query(async ({ ctx, input }) => {
+			const { query, page } = input
 
-		const result = await ctx.db
-			.select()
-			.from(products)
-			.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`))
-
-		return result
-	}),
+			const result = await ctx.db
+				.select()
+				.from(products)
+				.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`))
+				.limit(PRODUCTS_PER_PAGE)
+				.offset(page * PRODUCTS_PER_PAGE)
+			return result
+		}),
 	getAll: publicProcedure
 		.input(
 			z.object({

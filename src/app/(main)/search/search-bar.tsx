@@ -4,6 +4,8 @@ import React from 'react'
 
 type Props = {}
 
+
+
 const SearchBar = (props: Props) => {
 	return (
 		<div className="flex flex-row h-16 w-full items-center  border p-0">
@@ -13,6 +15,7 @@ const SearchBar = (props: Props) => {
 				<Button variant="outline">Save Search</Button>
 			</div>
 			<form className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
+				<SearchBarDropdown
 				<Input className="w-1/2" placeholder="Search" />
 
 				<Button >Search</Button>
