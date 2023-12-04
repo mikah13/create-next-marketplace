@@ -8,9 +8,9 @@ type TBreadcrumbLink = {
 }
 export default function Breadcrumb({ links }: { links?: TBreadcrumbLink[] }) {
 	return (
-		<div className="flex space-x-2 items-center">
+		<div className="flex  flex-row space-x-2 items-center">
 			{links?.map((link, index) => (
-				<div key={index}>
+				<div key={index} className="flex flex-row">
 					<Link
 						className={cn(
 							'text-sm font-medium ',

@@ -1,10 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React from 'react'
+import { SearchBarDropdown } from './search-bar-dropdown'
 
 type Props = {}
-
-
 
 const SearchBar = (props: Props) => {
 	return (
@@ -15,10 +14,10 @@ const SearchBar = (props: Props) => {
 				<Button variant="outline">Save Search</Button>
 			</div>
 			<form className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
-				<SearchBarDropdown
+				<SearchBarDropdown />
 				<Input className="w-1/2" placeholder="Search" />
 
-				<Button >Search</Button>
+				<Button className="ml-1">Search</Button>
 			</form>
 		</div>
 	)

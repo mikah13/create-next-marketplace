@@ -53,6 +53,7 @@ export function SearchBarDropdown() {
 								key={framework.value}
 								value={framework.value}
 								onSelect={(currentValue) => {
+									// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 									setValue(currentValue === value ? '' : currentValue)
 									setOpen(false)
 								}}>
