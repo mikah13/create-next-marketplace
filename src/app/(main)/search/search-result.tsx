@@ -17,6 +17,7 @@ const SearchResult = async ({ query }: Props) => {
 				return (
 					<div key={product.id} className="mx-auto">
 						<BasicCard price={price} title={name} />
+						
 					</div>
 				)
 			})}

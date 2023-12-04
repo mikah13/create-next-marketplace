@@ -16,6 +16,7 @@ type Props = {
 	price?: number
 	id?: string
 	bookmark?: boolean
+	category?: string | null
 }
 
 const BasicCard = ({ className, title, description, image, price, id, bookmark = false }: Props) => {

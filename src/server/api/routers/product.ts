@@ -72,6 +72,7 @@ export const productRouter = createTRPCRouter({
 				.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`))
 				.limit(PRODUCTS_PER_PAGE)
 				.offset(page * PRODUCTS_PER_PAGE)
+			
 			return result
 		}),
 	getAll: publicProcedure
