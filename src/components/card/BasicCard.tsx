@@ -19,7 +19,7 @@ type Props = {
 	category?: string | null
 }
 
-const BasicCard = ({ className, title, description, image, price, id, bookmark = false }: Props) => {
+const BasicCard = ({ className, category, title, description, image, price, id, bookmark = false }: Props) => {
 	return (
 		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-64  w-full border-none shadow-none ', className)}>
 			<CardHeader className="relative h-48 w-48 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
@@ -31,7 +31,9 @@ const BasicCard = ({ className, title, description, image, price, id, bookmark =
 				<CustomLink className="cursor-pointer text-lg font-medium text-black hover:text-blue-900">
 					{title}
 				</CustomLink>
-				<p className="text-md text-gray-600">{description}</p>
+
+				{category && <p className="text-md text-gray-600">{category}</p>}
+				{description && <p className="text-md text-gray-600">{description}</p>}
 			</CardContent>
 		</Card>
 	)

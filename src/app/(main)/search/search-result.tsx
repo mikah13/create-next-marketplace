@@ -12,12 +12,14 @@ const SearchResult = async ({ query }: Props) => {
 	console.log(results)
 	return (
 		<div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-center">
-			{results.map((product) => {
-				const { name, description, image, price } = product
+			{results.map(async (product) => {
+				const { name, description, image, price, categoryId } = product
+				const category = await api.category.getCategoryById.query({
+					id: parseInt(categoryId),
+				})
 				return (
 					<div key={product.id} className="mx-auto">
-						<BasicCard price={price} title={name} />
-						
+						<BasicCard price={price} title={name} category={category?.name} />
 					</div>
 				)
 			})}
