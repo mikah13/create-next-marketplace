@@ -21,7 +21,7 @@ type Props = {
 const BasicCard = ({ className, title, description, image, price, id, bookmark = false }: Props) => {
 	return (
 		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-64  w-full border-none shadow-none ', className)}>
-			<CardHeader className="relative h-48 w-48 rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
+			<CardHeader className="relative h-48 w-48 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
 				<Badge variant={'secondary'} className="absolute bottom-2 right-2">
 					${price}
 				</Badge>
