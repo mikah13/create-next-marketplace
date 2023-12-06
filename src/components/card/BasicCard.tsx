@@ -24,8 +24,8 @@ const BasicCard = async ({ className, categoryId, title, description, image, pri
 	const category = await api.category.getCategoryById.query({ id: categoryId })
 
 	return (
-		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-64  w-full border-none shadow-none ', className)}>
-			<CardHeader className="relative h-48 w-48 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
+		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-72  w-full border-none shadow-none ', className)}>
+			<CardHeader className="relative h-52 w-52 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
 				<Badge variant={'secondary'} className="absolute bottom-2 right-2">
 					${price}
 				</Badge>

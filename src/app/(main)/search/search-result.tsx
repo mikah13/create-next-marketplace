@@ -37,10 +37,14 @@ const SearchResult = async ({ query }: Props) => {
 				</div>
 
 				<div className="hidden sm:flex sm:gap-4">
-					<div className="relative">{/* <SearchFilterDropdown title={'Filter'} options={[12, 12]} /> */}</div>
+					<div className="relative">
+						<SearchFilterDropdown title={'Filter'} options={[12, 12]} />
+					</div>
 				</div>
 
-				<div className="hidden sm:block">{/* <SortDropdown /> */}</div>
+				<div className="hidden sm:block">
+					<SortDropdown />
+				</div>
 			</div>
 			<div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
 				{results &&

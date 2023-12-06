@@ -7,6 +7,7 @@ import { Separator } from './ui/separator'
 import NavigationBar from './NavigationBar'
 import Image from 'next/image'
 import { Sidebar } from './Sidebar'
+import Link from 'next/link'
 
 const Header = async () => {
 	const session = await getServerAuthSession()
@@ -14,9 +15,9 @@ const Header = async () => {
 		<header className="bg-white shadow">
 			<div className="mx-auto max-w-7xl px-10 py-3">
 				<div className="flex items-center justify-between">
-					<div className="">
+					<Link href="/" className="">
 						<Image src="/logo.png" height={50} width={50} alt="Page logo" />
-					</div>
+					</Link>
 					<div className="hidden items-center space-x-2 md:flex">
 						<Button variant="outline">
 							<Plus className="mr-2 h-4 w-4" />
