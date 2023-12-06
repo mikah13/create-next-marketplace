@@ -1,15 +1,14 @@
-'use client'
 import React, { useState } from 'react'
 import CustomLink from './ui/link'
 import { ScrollArea } from './ui/scroll-area'
 import { Button } from './ui/button'
-
+import { api } from '@/trpc/server'
 type Props = {}
 
-const ForSale = (props: Props) => {
-	const [active, setActive] = useState<number>(0)
+const ForSale = async (props: Props) => {
+	const categories = await api.category.getCategoryByTopic.query({ topic: 'For Sale' })
+	if (!categories || categories?.length === 0) return <></>
 
-  
 	return (
 		<section className="mx-auto max-w-7xl px-6 py-3">
 			<div className="flex justify-between py-8">
@@ -21,12 +20,9 @@ const ForSale = (props: Props) => {
 				<div className="col-span-5 sm:col-span-1">
 					<ScrollArea className="h-96">
 						<div className="flex flex-col space-y-2">
-							{new Array(10).fill(1).map((category, index) => (
-								<Button
-									key={index}
-									variant={active === index ? 'default' : 'secondary'}
-									className="py-6">
-									12
+							{categories.map((category, index) => (
+								<Button key={index} variant={'secondary'} className="py-6">
+									{category.name}
 								</Button>
 							))}
 						</div>
