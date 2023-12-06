@@ -32,8 +32,8 @@ const BasicCard = ({ className, category, title, description, image, price, id, 
 					{title}
 				</CustomLink>
 
-				{category && <p className="text-md text-gray-600">{category}</p>}
-				{description && <p className="text-md text-gray-600">{description}</p>}
+				{/* {category && <p className="text-md text-gray-600">{category}</p>} */}
+				{/* {description && <p className="text-md text-gray-600">{description}</p>} */}
 			</CardContent>
 		</Card>
 	)

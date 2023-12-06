@@ -15,6 +15,7 @@ const SearchBar = (props: Props) => {
 			</div>
 			<form className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
 				<SearchBarDropdown />
+
 				<Input className="w-1/2" placeholder="Search" />
 
 				<Button className="ml-1">Search</Button>
