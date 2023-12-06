@@ -8,6 +8,8 @@ type Props = {}
 
 const ForSale = (props: Props) => {
 	const [active, setActive] = useState<number>(0)
+
+  
 	return (
 		<section className="mx-auto max-w-7xl px-6 py-3">
 			<div className="flex justify-between py-8">

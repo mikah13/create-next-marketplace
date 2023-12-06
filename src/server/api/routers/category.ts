@@ -27,7 +27,7 @@ export const categoryRouter = createTRPCRouter({
 			return response('record successfully deleted')
 		}),
 
-	getAll: publicProcedure.meta({ openapi: { method: 'GET', path: '/category/get-all' } }).query(({ ctx }) => {
+	getAll: publicProcedure.query(({ ctx }) => {
 		return ctx.db.query.categories.findMany({
 			orderBy: (categories, { desc }) => [desc(categories.createdAt)],
 		})
