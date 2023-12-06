@@ -37,27 +37,23 @@ const SearchResult = async ({ query }: Props) => {
 				</div>
 
 				<div className="hidden sm:flex sm:gap-4">
-					<div className="relative">
-						<SearchFilterDropdown />
-					</div>
+					<div className="relative">{/* <SearchFilterDropdown title={'Filter'} options={[12, 12]} /> */}</div>
 				</div>
 
-				<div className="hidden sm:block">
-					<SortDropdown />
-				</div>
+				<div className="hidden sm:block">{/* <SortDropdown /> */}</div>
 			</div>
 			<div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
-				{results?.map(async (product) => {
-					const { name, image, price, categoryId } = product
-					const category = await api.category.getCategoryById.query({
-						id: parseInt(categoryId),
-					})
-					return (
-						<div key={product.id} className="mx-auto">
-							<BasicCard price={price} title={name} category={category?.name} />
-						</div>
-					)
-				})}
+				{results &&
+					results.length > 0 &&
+					results.map((product) => {
+						const { name, image, price, categoryId } = product
+
+						return (
+							<div key={product.id} className="mx-auto">
+								<BasicCard price={price} title={name} categoryId={parseInt(categoryId)} />
+							</div>
+						)
+					})}
 			</div>
 		</div>
 	)

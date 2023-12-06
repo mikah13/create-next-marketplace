@@ -14,7 +14,9 @@ const SearchFilterDropdown = ({ title, options }: Props) => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="outline" size="sm" className="h-8 border-dashed"></Button>
+				<Button variant="outline" size="sm" className="h-8">
+					{title}
+				</Button>
 			</PopoverTrigger>
 			<PopoverContent>Place content for the popover here.</PopoverContent>
 		</Popover>

@@ -28,7 +28,6 @@ export default function Page({
 						/>
 					</header>
 
-				
 					<SearchResult query={query} />
 				</div>
 			</section>

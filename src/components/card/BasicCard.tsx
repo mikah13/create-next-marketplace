@@ -7,6 +7,7 @@ import CustomLink from '../ui/link'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Bookmark, Star } from 'lucide-react'
+import { api } from '@/trpc/server'
 
 type Props = {
 	className?: string
@@ -16,10 +17,12 @@ type Props = {
 	price?: number
 	id?: string
 	bookmark?: boolean
-	category?: string | null
+	categoryId: number
 }
 
-const BasicCard = ({ className, category, title, description, image, price, id, bookmark = false }: Props) => {
+const BasicCard = async ({ className, categoryId, title, description, image, price, id, bookmark = false }: Props) => {
+	const category = await api.category.getCategoryById.query({ id: categoryId })
+
 	return (
 		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-64  w-full border-none shadow-none ', className)}>
 			<CardHeader className="relative h-48 w-48 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
@@ -32,7 +35,7 @@ const BasicCard = ({ className, category, title, description, image, price, id, 
 					{title}
 				</CustomLink>
 
-				{/* {category && <p className="text-md text-gray-600">{category}</p>} */}
+				{category && <p className="text-md text-gray-600">{category.name}</p>}
 				{/* {description && <p className="text-md text-gray-600">{description}</p>} */}
 			</CardContent>
 		</Card>
