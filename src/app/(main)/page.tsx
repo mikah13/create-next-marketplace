@@ -23,7 +23,7 @@ export default async function Home() {
 
 			<ForSale />
 			<Housing />
-			<Event />
+			{/* <Event /> */}
 			<Forums />
 			<Testimonial />
 		</main>
