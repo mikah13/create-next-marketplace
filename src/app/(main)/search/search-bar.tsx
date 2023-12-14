@@ -18,10 +18,10 @@ const SearchBar = (props: Props) => {
 				<Button variant="outline">Save Search</Button>
 				<Button variant="outline">Save Search</Button>
 			</div>
-			<form className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
+			<form method="GET" action="/search" className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
 				<SearchBarDropdown />
 
-				<Input value={query} className="w-1/2" placeholder="Search" />
+				<Input defaultValue={query} name="query" className="w-1/2" placeholder="Search" />
 
 				<Button className="ml-1">Search</Button>
 			</form>
