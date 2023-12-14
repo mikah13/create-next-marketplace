@@ -8,61 +8,57 @@ import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
-const frameworks = [
-	{
-		value: 'next.js',
-		label: 'Next.js',
-	},
-	{
-		value: 'sveltekit',
-		label: 'SvelteKit',
-	},
+const sorts = [
 	{
 		value: 'nuxt.js',
-		label: 'Nuxt.js',
+		label: 'Latest',
 	},
 	{
 		value: 'remix',
-		label: 'Remix',
+		label: 'Oldest',
 	},
 	{
-		value: 'astro',
-		label: 'Astro',
+		value: 'next.js',
+		label: 'Title Ascending',
+	},
+	{
+		value: 'sveltekit',
+		label: 'Title Descending',
 	},
 ]
-
-export function SortDropdown() {
+type Props = {
+	sort: string
+	sortType: string
+}
+export function SortDropdown({ sort, sortType }: Props) {
 	const [open, setOpen] = React.useState(false)
 	const [value, setValue] = React.useState('')
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
-				<Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-					{value ? frameworks.find((framework) => framework.value === value)?.label : 'Select framework...'}
+				<Button variant="outline" role="combobox" aria-expanded={open} className="w-52 justify-between">
+					{value ? sorts.find((sort) => sort.value === value)?.label : 'Sort By'}
 					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-[200px] p-0">
+			<PopoverContent className="w-52 p-0">
 				<Command>
-					<CommandInput placeholder="Search framework..." />
-					<CommandEmpty>No framework found.</CommandEmpty>
+					<CommandInput placeholder="Sort By" />
+					<CommandEmpty>No option found.</CommandEmpty>
 					<CommandGroup>
-						{frameworks.map((framework) => (
+						{sorts.map((sort) => (
 							<CommandItem
-								key={framework.value}
-								value={framework.value}
+								key={sort.value}
+								value={sort.value}
 								onSelect={(currentValue) => {
 									setValue(currentValue === value ? '' : currentValue)
 									setOpen(false)
 								}}>
 								<Check
-									className={cn(
-										'mr-2 h-4 w-4',
-										value === framework.value ? 'opacity-100' : 'opacity-0'
-									)}
+									className={cn('mr-2 h-4 w-4', value === sort.value ? 'opacity-100' : 'opacity-0')}
 								/>
-								{framework.label}
+								{sort.label}
 							</CommandItem>
 						))}
 					</CommandGroup>

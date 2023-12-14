@@ -49,7 +49,7 @@ const SearchResult = async ({ query, topic, category, sort = 'dsc', sortType = '
 				</div>
 
 				<div className="hidden sm:block">
-					<SortDropdown />
+					<SortDropdown sort={sort} sortType={sortType} />
 				</div>
 			</div>
 			<div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
