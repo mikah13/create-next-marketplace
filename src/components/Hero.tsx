@@ -4,7 +4,6 @@ import { Input } from './ui/input'
 import { Badge } from './ui/badge'
 
 type Props = {}
-
 const Hero = (props: Props) => {
 	return (
 		<section className="to-indigo-400w-full bg-gradient-to-bl from-blue-300 via-purple-100  py-12 md:py-24 lg:py-32">

@@ -7,18 +7,28 @@ import { Button } from '@/components/ui/button'
 import SearchFilterDropdown from './search-filter-dropdown'
 
 type Props = {
-	query: string
-	sortType: string | undefined
-	sort: string | undefined
-	topic: string | undefined
-	category: string | undefined
+	searchParams: Record<string, string | string[] | undefined>
 }
 
-const SearchResult = async ({ query, topic, category, sort = 'dsc', sortType = 'date' }: Props) => {
-	console.log({ query, topic, category, sort, sortType })
+const SearchResult = async ({ searchParams }: Props) => {
+	const query = searchParams.query as string
+	const sortType = searchParams.sortType as string
+	const sort = searchParams.sort as string
+	const category = searchParams.category as string
+	const topic = searchParams.topic as string
+
+	if (!query || query.length === 0) {
+		return (
+			<div className="mt-6">
+				<p className="font-medium">Please enter a search</p>
+			</div>
+		)
+	}
+
 	const results = await api.product.search.query({
 		query,
 	})
+
 	console.log(results)
 	return (
 		<div className="mt-6">
