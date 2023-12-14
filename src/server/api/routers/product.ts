@@ -72,7 +72,7 @@ export const productRouter = createTRPCRouter({
 				.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`))
 				.limit(PRODUCTS_PER_PAGE)
 				.offset(page * PRODUCTS_PER_PAGE)
-			
+
 			return result
 		}),
 	getAll: publicProcedure
@@ -103,6 +103,23 @@ export const productRouter = createTRPCRouter({
 			return ctx.db.query.products.findMany({
 				where: (products, { eq }) =>
 					eq(products.sellerId, input.userId) && eq(products.isPublished, input.isPublished),
+				orderBy: (products, { desc }) => [desc(products.createdAt)],
+				offset: input.page * PRODUCTS_PER_PAGE,
+				limit: PRODUCTS_PER_PAGE,
+			})
+		}),
+	getProductByCategoryId: publicProcedure
+		.input(
+			z.object({
+				categoryId: z.string(),
+				isPublished: z.boolean().default(true),
+				page: z.number().default(0),
+			})
+		)
+		.query(({ ctx, input }) => {
+			return ctx.db.query.products.findMany({
+				where: (products, { eq }) =>
+					eq(products.categoryId, input.categoryId) && eq(products.isPublished, input.isPublished),
 				orderBy: (products, { desc }) => [desc(products.createdAt)],
 				offset: input.page * PRODUCTS_PER_PAGE,
 				limit: PRODUCTS_PER_PAGE,

@@ -5,11 +5,30 @@ import CustomLink from './ui/link'
 import { ScrollArea } from './ui/scroll-area'
 import { Button } from './ui/button'
 import { api } from '@/trpc/react'
+import BasicCard from './card/BasicCard'
 type Props = {}
+
+const ForSaleProducts = ({ categoryId }: { categoryId: string }) => {
+	const { data, error } = api.product.getProductByCategoryId.useQuery({ categoryId })
+	if (error) return <></>
+	if (!data) return <></>
+
+	return data.map((product, idx) => (
+		<BasicCard
+			categoryId={parseInt(categoryId)}
+			title={product.name}
+			description={product.description}
+			id={product.id}
+			price={product.price}
+			key={idx}
+		/>
+	))
+}
 
 const ForSale = (props: Props) => {
 	const [selected, setSelected] = useState<number>(0)
 	const { data, error } = api.category.getCategoryByTopic.useQuery({ topic: 'For Sale' })
+
 	console.log(data)
 	// if (!categories || categories?.length === 0) return <></>
 	// if (fetching) return <></>

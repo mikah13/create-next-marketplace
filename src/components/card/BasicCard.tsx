@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
@@ -7,7 +8,7 @@ import CustomLink from '../ui/link'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Bookmark, Star } from 'lucide-react'
-import { api } from '@/trpc/server'
+import { api } from '@/trpc/react'
 
 type Props = {
 	className?: string
@@ -20,9 +21,9 @@ type Props = {
 	categoryId: number
 }
 
-const BasicCard = async ({ className, categoryId, title, description, image, price, id, bookmark = false }: Props) => {
-	const category = await api.category.getCategoryById.query({ id: categoryId })
-
+const BasicCard = ({ className, categoryId, title, description, image, price, id, bookmark = false }: Props) => {
+	const category = api.category.getCategoryById.useQuery({ id: categoryId })
+	if (!category) return <></>
 	return (
 		<Card className={cn('lg:max-w-64 col-span-1  mx-auto h-72  w-full border-none shadow-none ', className)}>
 			<CardHeader className="relative h-52 w-52 mx-auto rounded-lg bg-[url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105')] bg-cover bg-center bg-no-repeat object-cover">
