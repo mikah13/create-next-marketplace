@@ -70,7 +70,8 @@ export const productRouter = createTRPCRouter({
 			const result = await ctx.db
 				.select()
 				.from(products)
-				.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`))
+				.leftJoin(categories,  eq(products.categoryId, categories.id))
+				.where(like(products.name, `%${query}%`) || like(products.description, `%${query}%`) || like(categories.name, `%${query}$`))
 				.limit(PRODUCTS_PER_PAGE)
 				.offset(page * PRODUCTS_PER_PAGE)
 

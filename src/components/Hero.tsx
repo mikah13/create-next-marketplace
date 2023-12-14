@@ -17,10 +17,10 @@ const Hero = (props: Props) => {
 						Discover amazing deals and essential services in your community.
 					</p>
 				</div>
-				<div className="flex w-full space-x-2 mt-4">
-					<Input className="" placeholder="I want to find..." />
+				<form method="GET" action="/search" className="flex w-full space-x-2 mt-4">
+					<Input name="query" className="" placeholder="I want to find..." />
 					<Button type="submit">Search</Button>
-				</div>
+				</form>
 				<div className="flex space-x-2">
 					<Badge variant="default">Apartments</Badge>
 					<Badge variant="default">Books</Badge>

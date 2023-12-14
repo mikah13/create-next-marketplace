@@ -14,6 +14,7 @@ const SearchResult = async ({ query }: Props) => {
 	const results = await api.product.search.query({
 		query,
 	})
+	console.log(results)
 	return (
 		<div className="mt-6">
 			<p className="font-medium">
