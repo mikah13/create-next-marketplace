@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import CustomLink from './ui/link'
 import { ScrollArea } from './ui/scroll-area'
 import { Button } from './ui/button'
-import { api } from '@/trpc/server'
+import { api } from '@/trpc/react'
 type Props = {}
 
-const ForSale = async (props: Props) => {
-	const categories = await api.category.getCategoryByTopic.query({ topic: 'For Sale' })
-	if (!categories || categories?.length === 0) return <></>
-
+const ForSale = (props: Props) => {
+	const [selected, setSelected] = useState<number>(0)
+	const { data, error } = api.category.getCategoryByTopic.useQuery({ topic: 'For Sale' })
+	console.log(data)
+	// if (!categories || categories?.length === 0) return <></>
+	// if (fetching) return <></>
+	if (error) return <></>
+	if (!data) return <></>
 	return (
 		<section className="mx-auto max-w-7xl px-6 py-3">
 			<div className="flex justify-between py-8">
@@ -20,8 +26,14 @@ const ForSale = async (props: Props) => {
 				<div className="col-span-5 sm:col-span-1">
 					<ScrollArea className="h-96">
 						<div className="flex flex-col space-y-2">
-							{categories.map((category, index) => (
-								<Button key={index} variant={'secondary'} className="py-6">
+							{data.map((category, index) => (
+								<Button
+									key={index}
+									variant={selected === index ? 'secondary' : 'ghost'}
+									className="py-6"
+									onClick={() => {
+										setSelected(index)
+									}}>
 									{category.name}
 								</Button>
 							))}
