@@ -112,17 +112,45 @@ export const productRouter = createTRPCRouter({
 		.input(
 			z.object({
 				categoryId: z.number(),
-				isPublished: z.boolean().default(true),
 				page: z.number().default(0),
 			})
 		)
 		.query(({ ctx, input }) => {
 			return ctx.db.query.products.findMany({
-				where: (products, { eq }) =>
-					eq(products.categoryId, `${input.categoryId}`) && eq(products.isPublished, input.isPublished),
+				where: (products, { eq }) => eq(products.categoryId, `${input.categoryId}`),
 				orderBy: (products, { desc }) => [desc(products.createdAt)],
 				offset: input.page * PRODUCTS_PER_PAGE,
 				limit: PRODUCTS_PER_PAGE,
 			})
+		}),
+	getProductByTopic: publicProcedure
+		.input(
+			z.object({
+				topic: z.string(),
+				isPublished: z.boolean().default(true),
+				page: z.number().default(0),
+			})
+		)
+		.query(async ({ ctx, input }) => {
+			const topic = await ctx.db.query.topics.findFirst({
+				where: (topics, { eq }) => eq(topics.name, input.topic),
+			})
+			if (!topic) {
+				return []
+			}
+			const categoryList = await ctx.db.query.categories.findMany({
+				where: (categories, { eq }) => eq(categories.topicId, `${topic.id}`),
+			})
+
+			if (!categoryList || categoryList.length === 0) return []
+
+			const products = categoryList.map(async (cat) => {
+				const prod = await ctx.db.query.products.findMany({
+					where: (products, { eq }) => eq(products.categoryId, `${cat.id}`),
+					orderBy: (products, { desc }) => [desc(products.createdAt)],
+				})
+				return prod
+			})
+			return products
 		}),
 })
