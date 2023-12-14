@@ -11,6 +11,7 @@ const ForSaleProducts = ({ categoryId }: { categoryId: number }) => {
 	const { data, error } = api.product.getProductByCategoryId.useQuery({ categoryId })
 	if (error) return <></>
 	if (!data) return <></>
+	console.log({ data, categoryId })
 	return data.map((product, idx) => (
 		<BasicCard
 			categoryId={categoryId}
@@ -58,7 +59,7 @@ const ForSale = () => {
 				</div>
 				<ScrollArea className="hidden h-96 w-full sm:col-span-4 sm:block ">
 					<div className="grid h-96 grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-						{data?.[selected] && <ForSaleProducts categoryId={data[selected].id} />}
+						{data[selected] && <ForSaleProducts categoryId={data[selected]?.id ?? 0} />}
 					</div>
 				</ScrollArea>
 			</div>
