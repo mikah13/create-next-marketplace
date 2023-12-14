@@ -6,30 +6,27 @@ import { ScrollArea } from './ui/scroll-area'
 import { Button } from './ui/button'
 import { api } from '@/trpc/react'
 import BasicCard from './card/BasicCard'
-type Props = {}
 
-const ForSaleProducts = ({ categoryId }: { categoryId: string }) => {
+const ForSaleProducts = ({ categoryId }: { categoryId: number }) => {
 	const { data, error } = api.product.getProductByCategoryId.useQuery({ categoryId })
 	if (error) return <></>
 	if (!data) return <></>
-
 	return data.map((product, idx) => (
 		<BasicCard
-			categoryId={parseInt(categoryId)}
+			categoryId={categoryId}
 			title={product.name}
 			description={product.description}
-			id={product.id}
+			id={`${product.id}`}
 			price={product.price}
 			key={idx}
 		/>
 	))
 }
 
-const ForSale = (props: Props) => {
+const ForSale = () => {
 	const [selected, setSelected] = useState<number>(0)
 	const { data, error } = api.category.getCategoryByTopic.useQuery({ topic: 'For Sale' })
 
-	console.log(data)
 	// if (!categories || categories?.length === 0) return <></>
 	// if (fetching) return <></>
 	if (error) return <></>
@@ -60,7 +57,9 @@ const ForSale = (props: Props) => {
 					</ScrollArea>
 				</div>
 				<ScrollArea className="hidden h-96 w-full sm:col-span-4 sm:block ">
-					<div className="grid h-96 grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+					<div className="grid h-96 grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+						{data?.[selected] && <ForSaleProducts categoryId={data[selected].id} />}
+					</div>
 				</ScrollArea>
 			</div>
 		</section>

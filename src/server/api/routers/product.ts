@@ -111,7 +111,7 @@ export const productRouter = createTRPCRouter({
 	getProductByCategoryId: publicProcedure
 		.input(
 			z.object({
-				categoryId: z.string(),
+				categoryId: z.number(),
 				isPublished: z.boolean().default(true),
 				page: z.number().default(0),
 			})
@@ -119,7 +119,7 @@ export const productRouter = createTRPCRouter({
 		.query(({ ctx, input }) => {
 			return ctx.db.query.products.findMany({
 				where: (products, { eq }) =>
-					eq(products.categoryId, input.categoryId) && eq(products.isPublished, input.isPublished),
+					eq(products.categoryId, `${input.categoryId}`) && eq(products.isPublished, input.isPublished),
 				orderBy: (products, { desc }) => [desc(products.createdAt)],
 				offset: input.page * PRODUCTS_PER_PAGE,
 				limit: PRODUCTS_PER_PAGE,
