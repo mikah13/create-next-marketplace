@@ -50,12 +50,18 @@ const SearchResult = async ({ query }: Props) => {
 			<div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
 				{results &&
 					results.length > 0 &&
-					results.map((product) => {
+					results.map((result) => {
+						const { product, category } = result
 						const { name, image, price, categoryId } = product
 
 						return (
 							<div key={product.id} className="mx-auto">
-								<BasicCard price={price} title={name} categoryId={parseInt(categoryId)} />
+								<BasicCard
+									className="mb-0"
+									price={price}
+									title={name}
+									categoryId={parseInt(categoryId)}
+								/>
 							</div>
 						)
 					})}
