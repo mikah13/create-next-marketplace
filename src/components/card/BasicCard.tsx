@@ -6,7 +6,6 @@ import { AspectRatio } from '../ui/aspect-ratio'
 import Image from 'next/image'
 import CustomLink from '../ui/link'
 import { Badge } from '../ui/badge'
-import { Button } from '../ui/button'
 import { Bookmark, Star } from 'lucide-react'
 import { api } from '@/trpc/react'
 

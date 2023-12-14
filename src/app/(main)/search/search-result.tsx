@@ -8,9 +8,14 @@ import SearchFilterDropdown from './search-filter-dropdown'
 
 type Props = {
 	query: string
+	sortType: string | undefined
+	sort: string | undefined
+	topic: string | undefined
+	category: string | undefined
 }
 
-const SearchResult = async ({ query }: Props) => {
+const SearchResult = async ({ query, topic, category, sort = 'dsc', sortType = 'date' }: Props) => {
+	console.log({ query, topic, category, sort, sortType })
 	const results = await api.product.search.query({
 		query,
 	})

@@ -10,6 +10,10 @@ export default function Page({
 	searchParams: Record<string, string | string[] | undefined>
 }) {
 	const query = searchParams.query as string
+	const sortType = searchParams.sortType as string
+	const sort = searchParams.sort as string
+	const category = searchParams.category as string
+	const topic = searchParams.topic as string
 
 	if (!query || query.trim() === '') {
 		return <h1>please enter a search</h1>
@@ -28,7 +32,7 @@ export default function Page({
 						/>
 					</header>
 
-					<SearchResult query={query} />
+					<SearchResult topic={topic} category={category} query={query} sortType={sortType} sort={sort} />
 				</div>
 			</section>
 		</>
