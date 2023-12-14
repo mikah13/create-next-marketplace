@@ -16,6 +16,7 @@ export const TProductObject = z.object({
 	productId: z.string().optional(),
 	categoryId: z.string(),
 })
+export type TProduct = typeof products.$inferSelect
 
 export const productRouter = createTRPCRouter({
 	update: protectedProcedure.input(TProductObject).mutation(async ({ ctx, input }) => {
@@ -117,40 +118,33 @@ export const productRouter = createTRPCRouter({
 		)
 		.query(({ ctx, input }) => {
 			return ctx.db.query.products.findMany({
-				where: (products, { eq }) => eq(products.categoryId, `${input.categoryId}`),
+				where: (products, { eq }) =>
+					eq(products.categoryId, `${input.categoryId}`) && eq(products.isPublished, true),
 				orderBy: (products, { desc }) => [desc(products.createdAt)],
 				offset: input.page * PRODUCTS_PER_PAGE,
 				limit: PRODUCTS_PER_PAGE,
 			})
 		}),
-	getProductByTopic: publicProcedure
+	getProductByCategory: publicProcedure
 		.input(
 			z.object({
-				topic: z.string(),
+				category: z.string(),
 				isPublished: z.boolean().default(true),
 				page: z.number().default(0),
+				limit: z.number().default(10),
 			})
 		)
 		.query(async ({ ctx, input }) => {
-			const topic = await ctx.db.query.topics.findFirst({
-				where: (topics, { eq }) => eq(topics.name, input.topic),
+			const category = await ctx.db.query.categories.findFirst({
+				where: (categories, { eq }) => eq(categories.name, `${input.category}`),
 			})
-			if (!topic) {
-				return []
-			}
-			const categoryList = await ctx.db.query.categories.findMany({
-				where: (categories, { eq }) => eq(categories.topicId, `${topic.id}`),
+			if (!category) return []
+			return ctx.db.query.products.findMany({
+				where: (products, { eq }) =>
+					eq(products.categoryId, `${category.id}`) && eq(products.isPublished, input.isPublished),
+				orderBy: (products, { desc }) => [desc(products.createdAt)],
+				offset: input.page * input.limit,
+				limit: input.limit,
 			})
-
-			if (!categoryList || categoryList.length === 0) return []
-
-			const products = categoryList.map(async (cat) => {
-				const prod = await ctx.db.query.products.findMany({
-					where: (products, { eq }) => eq(products.categoryId, `${cat.id}`),
-					orderBy: (products, { desc }) => [desc(products.createdAt)],
-				})
-				return prod
-			})
-			return products
 		}),
 })

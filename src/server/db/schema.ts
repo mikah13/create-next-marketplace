@@ -58,6 +58,8 @@ export const products = mysqlTable('product', {
 	description: varchar('description', { length: 10000 }),
 	price: float('price').notNull(),
 	quantity: int('quanity').notNull(),
+	bathroom: int('bathroom'),
+	bedroom: int('bedroom'),
 	isPublished: boolean('isPublished').notNull(),
 	createdAt: timestamp('created_at')
 		.default(sql`CURRENT_TIMESTAMP`)
