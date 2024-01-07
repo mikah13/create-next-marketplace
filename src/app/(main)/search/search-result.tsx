@@ -2,8 +2,6 @@ import BasicCard from '@/components/card/BasicCard'
 import { api } from '@/trpc/server'
 import React from 'react'
 import { SortDropdown } from './sort-dropdown'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
 import SearchFilterDropdown from './search-filter-dropdown'
 
 type Props = {
@@ -66,8 +64,8 @@ const SearchResult = async ({ searchParams }: Props) => {
 				{results &&
 					results.length > 0 &&
 					results.map((result) => {
-						const { product, category } = result
-						const { name, image, price, categoryId } = product
+						const { product } = result
+						const { name, price, categoryId } = product
 
 						return (
 							<div key={product.id} className="mx-auto">

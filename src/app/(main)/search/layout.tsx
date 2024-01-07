@@ -1,10 +1,6 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
 import SearchBar from './search-bar'
 
 export default function HomeLayout({
-	params,
-	searchParams,
 	children,
 }: {
 	params: { slug: string }
@@ -13,7 +9,7 @@ export default function HomeLayout({
 }) {
 	return (
 		<div className="min-h-screen w-full">
-			<SearchBar searchParams={searchParams} />
+			<SearchBar />
 			{children}
 		</div>
 	)
