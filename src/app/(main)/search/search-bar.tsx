@@ -8,7 +8,7 @@ type Props = {}
 
 const SearchBar = (props: Props) => {
 	const searchParams = useSearchParams()
-
+	
 	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 	const query = searchParams.get('query') || ''
 	return (
@@ -19,7 +19,7 @@ const SearchBar = (props: Props) => {
 				<Button variant="outline">Save Search</Button>
 			</div>
 			<form method="GET" action="/search" className="flex flex-row flex-grow h-full px-2 items-center border-r-2">
-				<SearchBarDropdown />
+				<SearchBarDropdown /> 
 
 				<Input defaultValue={query} name="query" className="w-1/2" placeholder="Search" />
 
